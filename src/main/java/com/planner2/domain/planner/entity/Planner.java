@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Entity
-@Table(name = "/planners")
+@Table(name = "planners")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Planner extends BaseEntity {
 
@@ -22,15 +22,13 @@ public class Planner extends BaseEntity {
     private String title;
     private String content;
 
-    public Planner (Long id, String name, String title, String content){
-        this.id = id;
+    public Planner (String name, String title, String content){
         this.name = name;
         this.title = title;
         this.content = content;
     }
 
-    public void updatePlanner (Long id, String name, String title, String content){
-        this.id = id;
+    public void updatePlanner (String name, String title, String content){
         this.name = name;
         this.title = title;
         this.content = content;
