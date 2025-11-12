@@ -15,9 +15,9 @@ public class PlannerController {
     private final PlannerService plannerService;
 
     //일정 생성
-    @PostMapping("/planners")
-    public ResponseEntity<CreatePlannerResponse> createPlanner(@RequestBody CreatePlannerRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createPlanner(request));
+    @PostMapping("/users/{userId}/planners")
+    public ResponseEntity<CreatePlannerResponse> createPlanner(@PathVariable Long userId, @RequestBody CreatePlannerRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createPlanner(userId, request));
     }
 
     //일정 단건조회

@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class UpdatePlannerRequest {
-    private String name;
     private String title;
     private String content;
 }

@@ -35,7 +35,7 @@ public class UserService {
     //endregion
 
     //region 유저 단건조회
-    @Transactional
+    @Transactional(readOnly = true)
     public GetUserResponse getOneUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalStateException("유저가 존재하지 않습니다.")
@@ -54,7 +54,7 @@ public class UserService {
     //endregion
 
     //region 유저 전체조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GetUserResponse> getAllUser() {
         List<User> users = userRepository.findAll();
         List<GetUserResponse> dtos = new ArrayList<>();
