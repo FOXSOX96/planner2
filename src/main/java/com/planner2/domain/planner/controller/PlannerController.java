@@ -2,13 +2,14 @@ package com.planner2.domain.planner.controller;
 
 import com.planner2.domain.planner.dto.CreatePlannerRequest;
 import com.planner2.domain.planner.dto.CreatePlannerResponse;
+import com.planner2.domain.planner.dto.GetPlannerResponse;
 import com.planner2.domain.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,10 +22,17 @@ public class PlannerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createPlanner(request));
     }
 
+    //일정 단건조회
+    @GetMapping("/planners/{plannerId}")
+    public ResponseEntity<GetPlannerResponse> getOnePlanner (@PathVariable Long plannerId){
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getOnePlanner(plannerId));
+    }
 
-    //일정 단건 조회
-
-    //일정 전체 조회
+    //일정 전체조회
+    @GetMapping("/planners")
+    public ResponseEntity<List<GetPlannerResponse>> getAllPlanner (){
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getAllPlanner());
+    }
 
     //일정 수정
 
