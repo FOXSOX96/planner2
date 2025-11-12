@@ -79,6 +79,26 @@ public class PlannerService {
     }
     //endregion
 
+    //region 일정 선택유저 전체조회
+    public List<GetPlannerResponse> getUserPlanner(Long userId) {
+        List<Planner> planners = plannerRepository.findByUserId(userId);
+        List<GetPlannerResponse> dtos = new ArrayList<>();
+
+        for (Planner planner : planners) {
+            GetPlannerResponse dto = new GetPlannerResponse(
+                    planner.getId(),
+                    planner.getTitle(),
+                    planner.getContent(),
+                    planner.getCreatedAt(),
+                    planner.getModifiedAt()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+    //endregion
+
+
     //region 일정 수정
     @Transactional
     public UpdatePlannerResponse updatePlanner(Long plannerId, UpdatePlannerRequest request) {

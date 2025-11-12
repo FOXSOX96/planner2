@@ -32,6 +32,12 @@ public class PlannerController {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getAllPlanner());
     }
 
+    //일정 선택유저 전체조회
+    @GetMapping("/users/{userId}/planners")
+    public ResponseEntity<List<GetPlannerResponse>> getUserPlanner(@PathVariable Long userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getUserPlanner(userId));
+    }
+
     //일정 수정
     @PatchMapping("/planners/{plannerId}")
     public ResponseEntity<UpdatePlannerResponse> updatePlanner(@PathVariable Long plannerId, @RequestBody UpdatePlannerRequest request) {
