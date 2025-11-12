@@ -16,28 +16,32 @@ public class PlannerController {
 
     //일정 생성
     @PostMapping("/planners")
-    public ResponseEntity<CreatePlannerResponse> createPlanner (@RequestBody CreatePlannerRequest request){
+    public ResponseEntity<CreatePlannerResponse> createPlanner(@RequestBody CreatePlannerRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createPlanner(request));
     }
 
     //일정 단건조회
     @GetMapping("/planners/{plannerId}")
-    public ResponseEntity<GetPlannerResponse> getOnePlanner (@PathVariable Long plannerId){
+    public ResponseEntity<GetPlannerResponse> getOnePlanner(@PathVariable Long plannerId) {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getOnePlanner(plannerId));
     }
 
     //일정 전체조회
     @GetMapping("/planners")
-    public ResponseEntity<List<GetPlannerResponse>> getAllPlanner (){
+    public ResponseEntity<List<GetPlannerResponse>> getAllPlanner() {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getAllPlanner());
     }
 
     //일정 수정
     @PatchMapping("/planners/{plannerId}")
-    public ResponseEntity<UpdatePlannerResponse> updatePlanner (@PathVariable Long plannerId, @RequestBody UpdatePlannerRequest request){
+    public ResponseEntity<UpdatePlannerResponse> updatePlanner(@PathVariable Long plannerId, @RequestBody UpdatePlannerRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.updatePlanner(plannerId, request));
     }
 
     //일정 삭제
-
+    @DeleteMapping("/planners/{plannerId}")
+    public  ResponseEntity<Void> deletePlanner (@PathVariable Long plannerId) {
+        plannerService.deletePlanner(plannerId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

@@ -101,6 +101,16 @@ public class PlannerService {
     }
     //endregion
 
+    //region 일정 삭제
+    @Transactional
+    public void deletePlanner (Long plannerId){
+        boolean existence = plannerRepository.existsById(plannerId);
 
+        if (!existence) {
+            throw new IllegalStateException("일정이 존재하지 않습니다.");
+        }
+        plannerRepository.deleteById(plannerId);
+    }
+    //endregion
 
 }
