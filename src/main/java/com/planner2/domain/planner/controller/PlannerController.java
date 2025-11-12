@@ -1,8 +1,6 @@
 package com.planner2.domain.planner.controller;
 
-import com.planner2.domain.planner.dto.CreatePlannerRequest;
-import com.planner2.domain.planner.dto.CreatePlannerResponse;
-import com.planner2.domain.planner.dto.GetPlannerResponse;
+import com.planner2.domain.planner.dto.*;
 import com.planner2.domain.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +33,10 @@ public class PlannerController {
     }
 
     //일정 수정
+    @PatchMapping("/planners/{plannerId}")
+    public ResponseEntity<UpdatePlannerResponse> updatePlanner (@PathVariable Long plannerId, @RequestBody UpdatePlannerRequest request){
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.updatePlanner(plannerId, request));
+    }
 
     //일정 삭제
 

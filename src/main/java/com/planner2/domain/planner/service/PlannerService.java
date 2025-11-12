@@ -1,8 +1,6 @@
 package com.planner2.domain.planner.service;
 
-import com.planner2.domain.planner.dto.CreatePlannerRequest;
-import com.planner2.domain.planner.dto.CreatePlannerResponse;
-import com.planner2.domain.planner.dto.GetPlannerResponse;
+import com.planner2.domain.planner.dto.*;
 import com.planner2.domain.planner.entity.Planner;
 import com.planner2.domain.planner.repository.PlannerRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +56,7 @@ public class PlannerService {
 
     }
     //endregion
-//
+
     //region 일정 전체조회
     @Transactional
     public List<GetPlannerResponse> getAllPlanner() {
@@ -77,6 +75,29 @@ public class PlannerService {
             dtos.add(dto);
         }
         return dtos;
+    }
+    //endregion
+
+    //region 일정 수정
+    @Transactional
+    public UpdatePlannerResponse updatePlanner(Long plannerId, UpdatePlannerRequest request) {
+        Planner planner = plannerRepository.findById(plannerId).orElseThrow(
+                () -> new IllegalStateException("일정이 존재하지 않습니다.")
+        );
+
+        planner.updatePlanner(
+                request.getName(),
+                request.getTitle(),
+                request.getContent()
+        );
+
+        return new UpdatePlannerResponse(
+                planner.getName(),
+                planner.getTitle(),
+                planner.getContent(),
+                planner.getModifiedAt()
+        );
+
     }
     //endregion
 
