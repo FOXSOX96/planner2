@@ -4,14 +4,15 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Entity
 @Table(name = "/planners")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Planner {
+public class Planner extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +20,6 @@ public class Planner {
     private String name;
     private String title;
     private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
 
     public Planner (Long id, String name, String title, String content){
         this.id = id;

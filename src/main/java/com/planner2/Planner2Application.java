@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing
 @SpringBootApplication
 public class Planner2Application {
 
@@ -11,4 +12,5 @@ public class Planner2Application {
         SpringApplication.run(Planner2Application.class, args);
     }
 
+;
 }
