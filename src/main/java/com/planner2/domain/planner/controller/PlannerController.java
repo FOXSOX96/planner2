@@ -15,9 +15,9 @@ public class PlannerController {
     private final PlannerService plannerService;
 
     //일정 생성
-    @PostMapping("/planners")
-    public ResponseEntity<CreatePlannerResponse> createPlanner(@RequestBody CreatePlannerRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createPlanner(request));
+    @PostMapping("/users/{userId}/planners")
+    public ResponseEntity<CreatePlannerResponse> createPlanner(@PathVariable Long userId, @RequestBody CreatePlannerRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createPlanner(userId, request));
     }
 
     //일정 단건조회
@@ -30,6 +30,12 @@ public class PlannerController {
     @GetMapping("/planners")
     public ResponseEntity<List<GetPlannerResponse>> getAllPlanner() {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getAllPlanner());
+    }
+
+    //일정 선택유저 전체조회
+    @GetMapping("/users/{userId}/planners")
+    public ResponseEntity<List<GetPlannerResponse>> getUserPlanner(@PathVariable Long userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getUserPlanner(userId));
     }
 
     //일정 수정

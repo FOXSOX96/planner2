@@ -1,0 +1,33 @@
+package com.planner2.domain.user.entity;
+
+import com.planner2.domain.common.entity.BaseEntity;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@EntityListeners(AuditingEntityListener.class)
+@Getter
+@Entity
+@Table(name = "users")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class User extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+
+    public User (String name, String email){
+        this.name = name;
+        this.email = email;
+    }
+
+    public void updateUser (String name, String email){
+        this.name = name;
+        this.email = email;
+    }
+
+}

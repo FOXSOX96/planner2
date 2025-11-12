@@ -3,6 +3,8 @@ package com.planner2.domain.planner.service;
 import com.planner2.domain.planner.dto.*;
 import com.planner2.domain.planner.entity.Planner;
 import com.planner2.domain.planner.repository.PlannerRepository;
+import com.planner2.domain.user.entity.User;
+import com.planner2.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,13 +16,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlannerService {
     private final PlannerRepository plannerRepository;
+    private final UserRepository userRepository;
 
 
     //region 일정 생성
     @Transactional
-    public CreatePlannerResponse createPlanner(CreatePlannerRequest request) {
+    public CreatePlannerResponse createPlanner(Long userId, CreatePlannerRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalStateException("없는 유저입니다.")
+        );
         Planner planner = new Planner(
-                request.getName(),
+                user,
                 request.getTitle(),
                 request.getContent()
         );
@@ -28,7 +34,6 @@ public class PlannerService {
 
         return new CreatePlannerResponse (
                 savedPlanner.getId(),
-                savedPlanner.getName(),
                 savedPlanner.getTitle(),
                 savedPlanner.getContent(),
                 savedPlanner.getCreatedAt(),
@@ -38,7 +43,7 @@ public class PlannerService {
     //endregion
 
     //region 일정 단건조회
-    @Transactional
+    @Transactional(readOnly = true)
     public GetPlannerResponse getOnePlanner(Long plannerId) {
         Planner planner = plannerRepository.findById(plannerId).orElseThrow(
                 () -> new IllegalStateException("일정이 존재하지 않습니다.")
@@ -46,19 +51,16 @@ public class PlannerService {
 
         return new GetPlannerResponse(
                 planner.getId(),
-                planner.getName(),
                 planner.getTitle(),
                 planner.getContent(),
                 planner.getCreatedAt(),
                 planner.getModifiedAt()
         );
-
-
     }
     //endregion
 
     //region 일정 전체조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GetPlannerResponse> getAllPlanner() {
         List<Planner> planners = plannerRepository.findAll();
         List<GetPlannerResponse> dtos = new ArrayList<>();
@@ -66,7 +68,6 @@ public class PlannerService {
         for (Planner planner : planners) {
             GetPlannerResponse dto = new GetPlannerResponse(
                     planner.getId(),
-                    planner.getName(),
                     planner.getTitle(),
                     planner.getContent(),
                     planner.getCreatedAt(),
@@ -78,6 +79,26 @@ public class PlannerService {
     }
     //endregion
 
+    //region 일정 선택유저 전체조회
+    public List<GetPlannerResponse> getUserPlanner(Long userId) {
+        List<Planner> planners = plannerRepository.findByUserId(userId);
+        List<GetPlannerResponse> dtos = new ArrayList<>();
+
+        for (Planner planner : planners) {
+            GetPlannerResponse dto = new GetPlannerResponse(
+                    planner.getId(),
+                    planner.getTitle(),
+                    planner.getContent(),
+                    planner.getCreatedAt(),
+                    planner.getModifiedAt()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+    //endregion
+
+
     //region 일정 수정
     @Transactional
     public UpdatePlannerResponse updatePlanner(Long plannerId, UpdatePlannerRequest request) {
@@ -86,18 +107,15 @@ public class PlannerService {
         );
 
         planner.updatePlanner(
-                request.getName(),
                 request.getTitle(),
                 request.getContent()
         );
 
         return new UpdatePlannerResponse(
-                planner.getName(),
                 planner.getTitle(),
                 planner.getContent(),
                 planner.getModifiedAt()
         );
-
     }
     //endregion
 
