@@ -20,7 +20,8 @@ public class UserService {
     public CreateUserResponse createUser(CreateUserRequest request) {
         User user = new User(
                 request.getName(),
-                request.getEmail()
+                request.getEmail(),
+                request.getPassword()
         );
         User savedUser = userRepository.save(user);
 
@@ -82,7 +83,8 @@ public class UserService {
 
         user.updateUser(
                 request.getName(),
-                request.getEmail()
+                request.getEmail(),
+                request.getPassword()
         );
 
         return new UpdateUserResponse(
