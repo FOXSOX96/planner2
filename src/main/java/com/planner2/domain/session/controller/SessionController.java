@@ -21,6 +21,13 @@ public class SessionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(sessionService.loginSession(request, httpSession));
     }
 
+    //로그아웃 (세션 삭제)
+    @DeleteMapping
+    public ResponseEntity<Void> logoutSession(HttpSession httpSession) {
+        sessionService.logoutSession(httpSession);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 
 
 }

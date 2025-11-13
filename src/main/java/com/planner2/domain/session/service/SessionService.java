@@ -15,6 +15,7 @@ public class SessionService {
 
     private final UserRepository userRepository;
 
+    //region 로그인 (세션 생성)
     @Transactional
     public LoginResponse loginSession(LoginRequest request, HttpSession httpSession) {
         User user = userRepository.findByEmail(request.getEmail());
@@ -25,7 +26,6 @@ public class SessionService {
         }
 
         httpSession.setAttribute("email", request.getEmail()); //
-        httpSession.setAttribute("password", request.getPassword());
 
         LoginResponse loginResponse = new LoginResponse(
                 user.getId(),
@@ -34,4 +34,6 @@ public class SessionService {
         );
         return loginResponse;
     }
+    //endregion
+
 }
