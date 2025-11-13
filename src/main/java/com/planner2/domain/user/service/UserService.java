@@ -15,7 +15,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    //region 유저 생성
+    //region 유저 생성 (회원가입)
     @Transactional
     public CreateUserResponse createUser(CreateUserRequest request) {
         User user = new User(
