@@ -18,11 +18,13 @@ public class SessionService {
     @Transactional
     public LoginResponse loginSession(LoginRequest request, HttpSession httpSession) {
         User user = userRepository.findByEmail(request.getEmail());
-        if (user == null) {
+        if (user == null || request.getEmail() == null) {
             throw new IllegalStateException("해당 이메일의 사용자가 존재하지 않습니다.");
+        } else if (request.getPassword() != user.getPassword()) {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
 
-        httpSession.setAttribute("email", request.getEmail());
+        httpSession.setAttribute("email", request.getEmail()); //
         httpSession.setAttribute("password", request.getPassword());
 
         LoginResponse loginResponse = new LoginResponse(

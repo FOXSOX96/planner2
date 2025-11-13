@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Planner extends BaseEntity {
 
+    // - 엔티티관계 : 유저 ---0< 일정
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
