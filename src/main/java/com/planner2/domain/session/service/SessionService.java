@@ -25,7 +25,11 @@ public class SessionService {
         httpSession.setAttribute("email", request.getEmail());
         httpSession.setAttribute("password", request.getPassword());
 
-        LoginResponse loginResponse = new LoginResponse(user);
+        LoginResponse loginResponse = new LoginResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
         return loginResponse;
     }
 }
