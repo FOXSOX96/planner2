@@ -14,7 +14,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    //유저 생성
+    //유저 생성 (회원가입)
     @PostMapping("/users")
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(request));
