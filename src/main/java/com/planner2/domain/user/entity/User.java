@@ -18,9 +18,11 @@ public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 10, nullable = false)
     private String name;
-    @Column(unique = true)
+    @Column(length = 30, nullable = false, unique = true) //ID가 될 것이기 때문에 unique
     private String email;
+    @Column(length = 15, nullable = false)
     private String password;
 
     public User (String name, String email, String password){
@@ -29,9 +31,9 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public void updateUser (String name, String email, String password){
+    //이메일을 아이디로 사용해서 변경 불가
+    public void updateUser (String name, String password){
         this.name = name;
-        this.email = email;
         this.password = password;
     }
 

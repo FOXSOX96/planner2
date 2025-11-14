@@ -4,6 +4,7 @@ import com.planner2.domain.session.dto.LoginRequest;
 import com.planner2.domain.session.dto.LoginResponse;
 import com.planner2.domain.session.service.SessionService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class SessionController {
 
     //로그인 (세션 생성)
     @PostMapping("/logins")
-    public ResponseEntity<LoginResponse> loginSession(@RequestBody LoginRequest request, HttpSession httpSession) {
+    public ResponseEntity<LoginResponse> loginSession(@RequestBody @Valid LoginRequest request, HttpSession httpSession) {
         return ResponseEntity.status(HttpStatus.CREATED).body(sessionService.loginSession(request, httpSession));
     }
 

@@ -28,7 +28,9 @@ public class Planner extends BaseEntity {
                     name = "fk_planner_user",
                     value = ConstraintMode.NO_CONSTRAINT))
     private User user;
+    @Column(length = 50, nullable = false)
     private String title;
+    @Column(length = 500, nullable = false)
     private String content;
 
     public Planner(User user, String title, String content) {

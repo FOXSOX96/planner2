@@ -1,6 +1,10 @@
 package com.planner2.domain.planner.service;
 
-import com.planner2.domain.planner.dto.*;
+import com.planner2.domain.planner.dto.request.CreatePlannerRequest;
+import com.planner2.domain.planner.dto.request.UpdatePlannerRequest;
+import com.planner2.domain.planner.dto.response.CreatePlannerResponse;
+import com.planner2.domain.planner.dto.response.GetPlannerResponse;
+import com.planner2.domain.planner.dto.response.UpdatePlannerResponse;
 import com.planner2.domain.planner.entity.Planner;
 import com.planner2.domain.planner.repository.PlannerRepository;
 import com.planner2.domain.user.entity.User;
@@ -23,7 +27,7 @@ public class PlannerService {
     @Transactional
     public CreatePlannerResponse createPlanner(Long userId, CreatePlannerRequest request) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("없는 유저입니다.")
+                () -> new IllegalArgumentException("없는 유저입니다.")
         );
         Planner planner = new Planner(
                 user,
@@ -46,7 +50,7 @@ public class PlannerService {
     @Transactional(readOnly = true)
     public GetPlannerResponse getOnePlanner(Long plannerId) {
         Planner planner = plannerRepository.findById(plannerId).orElseThrow(
-                () -> new IllegalStateException("일정이 존재하지 않습니다.")
+                () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
 
         return new GetPlannerResponse(
@@ -103,7 +107,7 @@ public class PlannerService {
     @Transactional
     public UpdatePlannerResponse updatePlanner(Long plannerId, UpdatePlannerRequest request) {
         Planner planner = plannerRepository.findById(plannerId).orElseThrow(
-                () -> new IllegalStateException("일정이 존재하지 않습니다.")
+                () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
 
         planner.updatePlanner(
@@ -125,7 +129,7 @@ public class PlannerService {
         boolean existence = plannerRepository.existsById(plannerId);
 
         if (!existence) {
-            throw new IllegalStateException("일정이 존재하지 않습니다.");
+            throw new IllegalArgumentException("일정이 존재하지 않습니다.");
         }
         plannerRepository.deleteById(plannerId);
     }
