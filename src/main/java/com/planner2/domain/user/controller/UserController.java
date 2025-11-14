@@ -1,6 +1,10 @@
 package com.planner2.domain.user.controller;
 
-import com.planner2.domain.user.dto.*;
+import com.planner2.domain.user.dto.request.CreateUserRequest;
+import com.planner2.domain.user.dto.request.UpdateUserRequest;
+import com.planner2.domain.user.dto.response.CreateUserResponse;
+import com.planner2.domain.user.dto.response.GetUserResponse;
+import com.planner2.domain.user.dto.response.UpdateUserResponse;
 import com.planner2.domain.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

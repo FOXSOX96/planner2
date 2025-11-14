@@ -1,4 +1,4 @@
-package com.planner2.domain.planner.dto;
+package com.planner2.domain.planner.dto.response;
 
 import lombok.Getter;
 
