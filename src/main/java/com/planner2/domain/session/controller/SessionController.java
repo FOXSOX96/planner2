@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,12 +23,20 @@ public class SessionController {
     }
 
     //로그아웃 (세션 삭제)
-    @DeleteMapping
+    @PostMapping("/logouts")
     public ResponseEntity<Void> logoutSession(HttpSession httpSession) {
-        sessionService.logoutSession(httpSession);
+        httpSession.invalidate();
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    //세션 확인
+    @GetMapping("/sessions/tests")
+    public ResponseEntity<Void> test(@SessionAttribute(name = "email", required = false) String email) {
+        if (email == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 
 }

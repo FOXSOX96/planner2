@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +22,8 @@ public class SessionService {
         User user = userRepository.findByEmail(request.getEmail());
         if (user == null || request.getEmail() == null) {
             throw new IllegalStateException("해당 이메일의 사용자가 존재하지 않습니다.");
-        } else if (request.getPassword() != user.getPassword()) {
+        }
+        if (!request.getPassword().equals(user.getPassword())) {
             throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
 

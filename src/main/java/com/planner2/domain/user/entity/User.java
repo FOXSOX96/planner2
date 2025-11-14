@@ -1,6 +1,5 @@
 package com.planner2.domain.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.planner2.domain.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -20,6 +19,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
 
