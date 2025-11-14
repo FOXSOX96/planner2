@@ -43,7 +43,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public GetUserResponse getOneUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("유저가 존재하지 않습니다.")
+                () -> new IllegalArgumentException("유저가 존재하지 않습니다.")
         );
 
         return new GetUserResponse(
@@ -82,7 +82,7 @@ public class UserService {
     @Transactional
     public UpdateUserResponse updateUser(Long userId, UpdateUserRequest request) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("유저가 존재하지 않습니다.")
+                () -> new IllegalArgumentException("유저가 존재하지 않습니다.")
         );
 
         user.updateUser(
@@ -105,7 +105,7 @@ public class UserService {
         boolean existence = userRepository.existsById(userId);
 
         if (!existence) {
-            throw new IllegalStateException("유저가 존재하지 않습니다.");
+            throw new IllegalArgumentException("유저가 존재하지 않습니다.");
         }
         userRepository.deleteById(userId);
     }
