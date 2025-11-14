@@ -83,7 +83,6 @@ public class UserService {
 
         user.updateUser(
                 request.getName(),
-                request.getEmail(),
                 request.getPassword()
         );
 

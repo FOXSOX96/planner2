@@ -2,6 +2,7 @@ package com.planner2.domain.planner.controller;
 
 import com.planner2.domain.planner.dto.*;
 import com.planner2.domain.planner.service.PlannerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class PlannerController {
 
     //일정 생성
     @PostMapping("/users/{userId}/planners")
-    public ResponseEntity<CreatePlannerResponse> createPlanner(@PathVariable Long userId, @RequestBody CreatePlannerRequest request) {
+    public ResponseEntity<CreatePlannerResponse> createPlanner(@PathVariable Long userId, @RequestBody @Valid CreatePlannerRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createPlanner(userId, request));
     }
 
@@ -40,7 +41,7 @@ public class PlannerController {
 
     //일정 수정
     @PatchMapping("/planners/{plannerId}")
-    public ResponseEntity<UpdatePlannerResponse> updatePlanner(@PathVariable Long plannerId, @RequestBody UpdatePlannerRequest request) {
+    public ResponseEntity<UpdatePlannerResponse> updatePlanner(@PathVariable Long plannerId, @RequestBody @Valid UpdatePlannerRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.updatePlanner(plannerId, request));
     }
 

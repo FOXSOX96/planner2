@@ -2,6 +2,7 @@ package com.planner2.domain.user.controller;
 
 import com.planner2.domain.user.dto.*;
 import com.planner2.domain.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class UserController {
 
     //유저 생성 (회원가입)
     @PostMapping("/users")
-    public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(request));
     }
 
@@ -34,7 +35,7 @@ public class UserController {
 
     //유저 수정
     @PatchMapping("/users/{userId}")
-    public ResponseEntity<UpdateUserResponse> updateUser(@PathVariable Long userId, @RequestBody UpdateUserRequest request) {
+    public ResponseEntity<UpdateUserResponse> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(userId, request));
     }
 
