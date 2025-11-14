@@ -20,7 +20,7 @@ public class User extends BaseEntity {
     private Long id;
     @Column(length = 10, nullable = false)
     private String name;
-    @Column(length = 50, nullable = false, unique = true) //ID가 될 것이기 때문에 unique
+    @Column(length = 30, nullable = false, unique = true) //ID가 될 것이기 때문에 unique
     private String email;
     @Column(length = 15, nullable = false)
     private String password;
