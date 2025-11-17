@@ -1,5 +1,6 @@
 package com.planner2.domain.session.service;
 
+import com.planner2.domain.common.config.PasswordEncoder;
 import com.planner2.domain.common.exception.PasswordException;
 import com.planner2.domain.session.dto.LoginRequest;
 import com.planner2.domain.session.dto.LoginResponse;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SessionService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     //region 로그인 (세션 생성)
     @Transactional
@@ -23,7 +25,7 @@ public class SessionService {
         if (user == null || request.getEmail() == null) {
             throw new IllegalStateException("해당 이메일의 사용자가 존재하지 않습니다.");
         }
-        if (!request.getPassword().equals(user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new PasswordException();
         }
 

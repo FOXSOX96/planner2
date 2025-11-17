@@ -1,6 +1,9 @@
 package com.planner2.domain.user.service;
 
+import com.planner2.domain.common.config.PasswordEncoder;
+import com.planner2.domain.common.exception.PasswordException;
 import com.planner2.domain.user.dto.request.CreateUserRequest;
+import com.planner2.domain.user.dto.request.DeleteUserRequest;
 import com.planner2.domain.user.dto.request.UpdateUserRequest;
 import com.planner2.domain.user.dto.response.CreateUserResponse;
 import com.planner2.domain.user.dto.response.GetUserResponse;
@@ -18,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     //region 유저 생성 (회원가입)
     @Transactional
@@ -25,11 +29,11 @@ public class UserService {
         User user = new User(
                 request.getName(),
                 request.getEmail(),
-                request.getPassword()
+                passwordEncoder.encode(request.getPassword())//암호화
         );
         User savedUser = userRepository.save(user);
 
-        return new CreateUserResponse (
+        return new CreateUserResponse(
                 savedUser.getId(),
                 savedUser.getName(),
                 savedUser.getEmail(),
@@ -84,10 +88,14 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("유저가 존재하지 않습니다.")
         );
+        //비밀번호 검증
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new PasswordException("비밀번호가 일치하지 않습니다.");
+        }
 
         user.updateUser(
                 request.getName(),
-                request.getPassword()
+                passwordEncoder.encode(request.getNewPassword())//새 비밀번호 변경
         );
 
         return new UpdateUserResponse(
@@ -101,11 +109,13 @@ public class UserService {
 
     //region 유저 삭제
     @Transactional
-    public void deleteUser (Long userId){
-        boolean existence = userRepository.existsById(userId);
-
-        if (!existence) {
-            throw new IllegalArgumentException("유저가 존재하지 않습니다.");
+    public void deleteUser(Long userId, DeleteUserRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("유저가 존재하지 않습니다.")
+        );
+        //비밀번호 검증
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new PasswordException("비밀번호가 일치하지 않습니다.");
         }
         userRepository.deleteById(userId);
     }

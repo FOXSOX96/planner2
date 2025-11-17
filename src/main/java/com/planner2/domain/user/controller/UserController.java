@@ -1,6 +1,7 @@
 package com.planner2.domain.user.controller;
 
 import com.planner2.domain.user.dto.request.CreateUserRequest;
+import com.planner2.domain.user.dto.request.DeleteUserRequest;
 import com.planner2.domain.user.dto.request.UpdateUserRequest;
 import com.planner2.domain.user.dto.response.CreateUserResponse;
 import com.planner2.domain.user.dto.response.GetUserResponse;
@@ -45,8 +46,8 @@ public class UserController {
 
     //유저 삭제
     @DeleteMapping("/users/{userId}")
-    public  ResponseEntity<Void> deleteUser (@PathVariable Long userId) {
-        userService.deleteUser(userId);
+    public ResponseEntity<Void> deleteUser (@PathVariable Long userId, @RequestBody @Valid DeleteUserRequest request) {
+        userService.deleteUser(userId, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
