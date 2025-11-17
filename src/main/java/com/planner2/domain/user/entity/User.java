@@ -22,7 +22,7 @@ public class User extends BaseEntity {
     private String name;
     @Column(length = 30, nullable = false, unique = true) //ID가 될 것이기 때문에 unique
     private String email;
-    @Column(length = 15, nullable = false)
+    @Column(length = 100, nullable = false) //암호화된 비밀번호 길이가 긺
     private String password;
 
     public User (String name, String email, String password){
