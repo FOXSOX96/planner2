@@ -31,12 +31,11 @@ public class SessionService {
 
         httpSession.setAttribute("email", request.getEmail()); //
 
-        LoginResponse loginResponse = new LoginResponse(
+        return new LoginResponse(
                 user.getId(),
                 user.getName(),
                 user.getEmail()
         );
-        return loginResponse;
     }
     //endregion
 

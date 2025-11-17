@@ -1,4 +1,5 @@
 /*
+
 package com.planner2.domain.common.config;
 
 import lombok.RequiredArgsConstructor;
@@ -14,17 +15,14 @@ import org.springframework.security.web.SecurityFilterChain;
 
 public class WebSecurityConfig {
 
-*/
-/*    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*//*
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http    .authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/logins", "/users").permitAll()
+        http    .csrf(csrf -> csrf.disable())
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable());
+        http
+                .authorizeHttpRequests((auth) -> auth
+                .requestMatchers("/logins","/users").permitAll()
                 .anyRequest().authenticated()
         );
         return http.build();
