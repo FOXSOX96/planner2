@@ -89,5 +89,17 @@ public class CommentService {
     }
     //endregion
 
+    //region 댓글 삭제
+    @Transactional
+    public void deleteComment (Long commentId){
+        boolean existence = commentRepository.existsById(commentId);
+
+        if (!existence) {
+            throw new IllegalArgumentException("댓글이 존재하지 않습니다.");
+        }
+        commentRepository.deleteById(commentId);
+    }
+    //endregion
+
 
 }
