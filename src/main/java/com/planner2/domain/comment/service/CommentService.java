@@ -1,8 +1,10 @@
 package com.planner2.domain.comment.service;
 
 import com.planner2.domain.comment.dto.request.CreateCommentRequest;
+import com.planner2.domain.comment.dto.request.UpdateCommentRequest;
 import com.planner2.domain.comment.dto.response.CreateCommentResponse;
 import com.planner2.domain.comment.dto.response.GetCommentResponse;
+import com.planner2.domain.comment.dto.response.UpdateCommentResponse;
 import com.planner2.domain.comment.entity.Comment;
 import com.planner2.domain.comment.repository.CommentRepository;
 import com.planner2.domain.planner.entity.Planner;
@@ -68,5 +70,24 @@ public class CommentService {
         return dtos;
     }
     //endregion
+
+    //region 댓글 수정
+    @Transactional
+    public UpdateCommentResponse updateComment(Long commentId, UpdateCommentRequest request) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new IllegalArgumentException("댓글이 존재하지 않습니다.")
+        );
+
+        comment.updateComment(
+                request.getContent()
+        );
+
+        return new UpdateCommentResponse(
+                comment.getContent(),
+                comment.getModifiedAt()
+        );
+    }
+    //endregion
+
 
 }

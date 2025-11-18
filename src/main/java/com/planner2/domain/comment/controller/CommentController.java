@@ -1,8 +1,10 @@
 package com.planner2.domain.comment.controller;
 
 import com.planner2.domain.comment.dto.request.CreateCommentRequest;
+import com.planner2.domain.comment.dto.request.UpdateCommentRequest;
 import com.planner2.domain.comment.dto.response.CreateCommentResponse;
 import com.planner2.domain.comment.dto.response.GetCommentResponse;
+import com.planner2.domain.comment.dto.response.UpdateCommentResponse;
 import com.planner2.domain.comment.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,12 @@ public class CommentController {
     @GetMapping("/comments")
     public ResponseEntity<List<GetCommentResponse>> getComment(@PathVariable Long plannerId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(plannerId));
+    }
+
+    //댓글 수정
+    @PatchMapping("/comments/{commentId}")
+    public ResponseEntity<UpdateCommentResponse> updateComment(@PathVariable Long commentId, @RequestBody @Valid UpdateCommentRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.updateComment(commentId, request));
     }
 
 }
