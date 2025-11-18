@@ -1,4 +1,4 @@
-package com.planner2.domain.common.filter;
+package com.planner2.common.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

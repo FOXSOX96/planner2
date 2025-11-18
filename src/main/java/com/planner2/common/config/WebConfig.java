@@ -1,7 +1,7 @@
-package com.planner2.domain.common.config;
+package com.planner2.common.config;
 
-import com.planner2.domain.common.filter.LogFilter;
-import com.planner2.domain.common.filter.LoginCheckFilter;
+import com.planner2.common.filter.LogFilter;
+import com.planner2.common.filter.LoginCheckFilter;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

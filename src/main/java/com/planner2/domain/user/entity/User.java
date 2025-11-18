@@ -1,6 +1,6 @@
 package com.planner2.domain.user.entity;
 
-import com.planner2.domain.common.entity.BaseEntity;
+import com.planner2.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

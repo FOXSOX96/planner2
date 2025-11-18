@@ -1,4 +1,4 @@
-package com.planner2.domain.common.exception;
+package com.planner2.common.exception;
 
 public class PasswordException extends RuntimeException{
 
