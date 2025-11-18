@@ -1,4 +1,4 @@
-package com.planner2.domain.common.entity;
+package com.planner2.common.entity;
 
 
 import jakarta.persistence.*;

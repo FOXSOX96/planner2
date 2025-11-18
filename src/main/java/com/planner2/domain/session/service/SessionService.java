@@ -1,7 +1,7 @@
 package com.planner2.domain.session.service;
 
-import com.planner2.domain.common.config.PasswordEncoder;
-import com.planner2.domain.common.exception.PasswordException;
+import com.planner2.common.config.PasswordEncoder;
+import com.planner2.common.exception.PasswordException;
 import com.planner2.domain.session.dto.LoginRequest;
 import com.planner2.domain.session.dto.LoginResponse;
 import com.planner2.domain.user.entity.User;

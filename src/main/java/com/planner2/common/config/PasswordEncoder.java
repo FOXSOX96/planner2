@@ -1,4 +1,4 @@
-package com.planner2.domain.common.config;
+package com.planner2.common.config;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
