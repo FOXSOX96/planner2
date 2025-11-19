@@ -3,6 +3,7 @@ package com.planner2.domain.planner.service;
 import com.planner2.domain.comment.dto.response.GetCommentResponse;
 import com.planner2.domain.comment.entity.Comment;
 import com.planner2.domain.comment.repository.CommentRepository;
+import com.planner2.domain.planner.dto.projection.GetPlannerPageResponse;
 import com.planner2.domain.planner.dto.request.CreatePlannerRequest;
 import com.planner2.domain.planner.dto.request.UpdatePlannerRequest;
 import com.planner2.domain.planner.dto.response.*;

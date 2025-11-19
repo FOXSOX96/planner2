@@ -1,6 +1,6 @@
 package com.planner2.domain.planner.repository;
 
-import com.planner2.domain.planner.dto.response.GetPlannerPageResponse;
+import com.planner2.domain.planner.dto.projection.GetPlannerPageResponse;
 import com.planner2.domain.planner.entity.Planner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

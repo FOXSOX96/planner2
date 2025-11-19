@@ -1,5 +1,6 @@
 package com.planner2.domain.planner.controller;
 
+import com.planner2.domain.planner.dto.projection.GetPlannerPageResponse;
 import com.planner2.domain.planner.dto.request.CreatePlannerRequest;
 import com.planner2.domain.planner.dto.request.UpdatePlannerRequest;
 import com.planner2.domain.planner.dto.response.*;

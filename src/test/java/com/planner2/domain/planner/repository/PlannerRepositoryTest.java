@@ -1,6 +1,6 @@
 package com.planner2.domain.planner.repository;
 
-import com.planner2.domain.planner.dto.response.GetPlannerPageResponse;
+import com.planner2.domain.planner.dto.projection.GetPlannerPageResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
