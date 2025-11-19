@@ -3,6 +3,7 @@ package com.planner2.domain.planner.controller;
 import com.planner2.domain.planner.dto.request.CreatePlannerRequest;
 import com.planner2.domain.planner.dto.request.UpdatePlannerRequest;
 import com.planner2.domain.planner.dto.response.CreatePlannerResponse;
+import com.planner2.domain.planner.dto.response.GetOnePlannerResponse;
 import com.planner2.domain.planner.dto.response.GetPlannerResponse;
 import com.planner2.domain.planner.dto.response.UpdatePlannerResponse;
 import com.planner2.domain.planner.service.PlannerService;
@@ -27,7 +28,7 @@ public class PlannerController {
 
     //일정 단건조회
     @GetMapping("/planners/{plannerId}")
-    public ResponseEntity<GetPlannerResponse> getOnePlanner(@PathVariable Long plannerId) {
+    public ResponseEntity<GetOnePlannerResponse> getOnePlanner(@PathVariable Long plannerId) {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getOnePlanner(plannerId));
     }
 
