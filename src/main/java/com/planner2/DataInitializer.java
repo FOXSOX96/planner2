@@ -37,12 +37,22 @@ public class DataInitializer implements CommandLineRunner {
         Planner LGJ1 = new Planner(LGJ, "오늘할일1", "내용");
         Planner LGJ2 = new Planner(LGJ, "오늘할일2", "내용");
         Planner LGJ3 = new Planner(LGJ, "오늘할일3", "내용");
+        Planner LGJ4 = new Planner(LGJ, "오늘할일", "내용");
+        Planner LGJ5 = new Planner(LGJ, "오늘할일", "내용");
+        Planner LGJ6 = new Planner(LGJ, "오늘할일", "내용");
+        Planner LGJ7 = new Planner(LGJ, "오늘할일", "내용");
+        Planner LGJ8 = new Planner(LGJ, "오늘할일", "내용");
+        Planner LGJ9 = new Planner(LGJ, "오늘할일", "내용");
+        Planner LGJ10 = new Planner(LGJ, "오늘할일", "내용");
+        Planner LGJ11 = new Planner(LGJ, "오늘할일", "내용");
 
 
         // 댓글 준비
         Comment LGJ1C1 = new Comment(LGJ, LGJ1, "댓글1");
         Comment LGJ1C2 = new Comment(LGJ, LGJ1, "댓글2");
         Comment LGJ1C3 = new Comment(LGJ, LGJ1, "댓글3");
+
+        Comment LGJ11C1 = new Comment(LGJ, LGJ11, "댓글1");
 
 
         // 유저 생성
@@ -52,10 +62,20 @@ public class DataInitializer implements CommandLineRunner {
         plannerRepository.save(LGJ1);
         plannerRepository.save(LGJ2);
         plannerRepository.save(LGJ3);
+        plannerRepository.save(LGJ4);
+        plannerRepository.save(LGJ5);
+        plannerRepository.save(LGJ6);
+        plannerRepository.save(LGJ7);
+        plannerRepository.save(LGJ8);
+        plannerRepository.save(LGJ9);
+        plannerRepository.save(LGJ10);
+        plannerRepository.save(LGJ11);
 
         // 댓글 생성
         commentRepository.save(LGJ1C1);
         commentRepository.save(LGJ1C2);
         commentRepository.save(LGJ1C3);
+
+        commentRepository.save(LGJ11C1);
     }
 }
