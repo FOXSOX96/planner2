@@ -11,8 +11,10 @@ import java.util.List;
 
 public interface PlannerRepository extends JpaRepository<Planner, Long> {
     List<Planner> findByUserId(Long userId); //SELECT p FROM Planner p WHERE p.user.id = :userId
+
+    //참조: 이 경우 @Query가 간단하지만 조건들에 변수가 붙을수록 QueryDSL이 효율적이다.
     @Query("""
-        SELECT new com.planner2.domain.planner.dto.response.GetPlannerPageResponse(
+        SELECT new com.planner2.domain.planner.dto.projection.GetPlannerPageResponse(
             p.id,
             p.title,
             p.content,
