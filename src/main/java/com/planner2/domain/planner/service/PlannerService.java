@@ -1,8 +1,13 @@
 package com.planner2.domain.planner.service;
 
+import com.planner2.common.config.PasswordEncoder;
+import com.planner2.domain.comment.dto.response.GetCommentResponse;
+import com.planner2.domain.comment.entity.Comment;
+import com.planner2.domain.comment.repository.CommentRepository;
 import com.planner2.domain.planner.dto.request.CreatePlannerRequest;
 import com.planner2.domain.planner.dto.request.UpdatePlannerRequest;
 import com.planner2.domain.planner.dto.response.CreatePlannerResponse;
+import com.planner2.domain.planner.dto.response.GetOnePlannerResponse;
 import com.planner2.domain.planner.dto.response.GetPlannerResponse;
 import com.planner2.domain.planner.dto.response.UpdatePlannerResponse;
 import com.planner2.domain.planner.entity.Planner;
@@ -21,6 +26,8 @@ import java.util.List;
 public class PlannerService {
     private final PlannerRepository plannerRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     //region 일정 생성
@@ -48,18 +55,31 @@ public class PlannerService {
 
     //region 일정 단건조회
     @Transactional(readOnly = true)
-    public GetPlannerResponse getOnePlanner(Long plannerId) {
+    public GetOnePlannerResponse getOnePlanner(Long plannerId) {
         Planner planner = plannerRepository.findById(plannerId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
-
-        return new GetPlannerResponse(
+        GetPlannerResponse getPlannerResponse = new GetPlannerResponse(
                 planner.getId(),
                 planner.getTitle(),
                 planner.getContent(),
                 planner.getCreatedAt(),
                 planner.getModifiedAt()
         );
+        //선택일정의 댓글 조회
+        List<Comment> comments = commentRepository.findCommentByPlanner_Id(plannerId);
+        List<GetCommentResponse> commentsList = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            GetCommentResponse dto = new GetCommentResponse(
+                    comment.getId(),
+                    comment.getContent(),
+                    comment.getCreatedAt(),
+                    comment.getModifiedAt()
+            );
+            commentsList.add(dto);
+        }
+        return new GetOnePlannerResponse(getPlannerResponse, commentsList);
     }
     //endregion
 
