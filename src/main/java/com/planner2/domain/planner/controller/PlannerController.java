@@ -1,14 +1,13 @@
 package com.planner2.domain.planner.controller;
 
+import com.planner2.domain.planner.dto.projection.GetPlannerPageResponse;
 import com.planner2.domain.planner.dto.request.CreatePlannerRequest;
 import com.planner2.domain.planner.dto.request.UpdatePlannerRequest;
-import com.planner2.domain.planner.dto.response.CreatePlannerResponse;
-import com.planner2.domain.planner.dto.response.GetOnePlannerResponse;
-import com.planner2.domain.planner.dto.response.GetPlannerResponse;
-import com.planner2.domain.planner.dto.response.UpdatePlannerResponse;
+import com.planner2.domain.planner.dto.response.*;
 import com.planner2.domain.planner.service.PlannerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +31,16 @@ public class PlannerController {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getOnePlanner(plannerId));
     }
 
-    //일정 전체조회
-    @GetMapping("/planners")
+    //일정 전체조회 -url 따로 뺌
+    @GetMapping("/planners/all")
     public ResponseEntity<List<GetPlannerResponse>> getAllPlanner() {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getAllPlanner());
+    }
+
+    //일정 전체조회 (페이지방식)
+    @GetMapping("/planners")
+    public ResponseEntity<Page<GetPlannerPageResponse>> getPlannerPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getPlannersPage(page, size));
     }
 
     //일정 선택유저 전체조회
